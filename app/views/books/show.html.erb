@@ -1,8 +1,9 @@
 <body>
     <main>
+        <p><%= flash[:notice] %></p>
         <div class="container px-5 px-sm-0">
              <div class="row">
-               <%= render 'books', book: @book, user: @user %>
+               <%= render 'books', book: @book_new, user: @user %>
 
 
                   <div class="col-md-8 offset-md-1">
@@ -22,12 +23,14 @@
                             <% end %>
                           </th>
                           <th><%= @book.body %></th>
+                          <% if @book.user == current_user %>
                           <th>
                             <%= link_to "Edit", edit_book_path %>
                           </th>
+                          <% end %>
                           <th>
                             <% if @book.user == current_user %>
-                              <%= link_to "Destroy", book_path(@book), method: :delete %>
+                              <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
                             <% end %>
                           </th>
                           <th colspan="5"></th>
